@@ -20,13 +20,13 @@
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="/">Home</a>
+                <a class="nav-link {% block homeactive %}{% endblock homeactive %}" aria-current="page" href="/">Home</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="/blog">Blog</a>
+                <a class="nav-link {% block blogactive %}{% endblock blogactive %}" href="/blog">Blog</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="/contact">Contact</a>
+                <a class="nav-link {% block contactactive %}{% endblock contactactive %}" href="/contact">Contact</a>
               </li>
               
             </ul>
@@ -38,6 +38,8 @@
         </div>
       </nav>
     {% block body %}{% endblock body %}
+
+    <footer class="py-3 text-light bg-dark text-center"> Copyright &copy; SnoozeWrites.com </footer>
 
     <!-- Optional JavaScript; choose one of the two! -->
 

@@ -11,7 +11,10 @@ def blog(request):
     return render(request, 'bloghome.html', context)
 
 def blogpost(request, slug):
-    return HttpResponse(f"Your are viewing {slug}")
+    blog = Blog.objects.filter(slug = slug).first()
+    context = {'blog': blog}
+
+    return render(request, 'blogpost.html', context)
 
 def search(request):
     return render(request, 'search.html')
