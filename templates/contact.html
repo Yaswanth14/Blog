@@ -1,6 +1,16 @@
 {% extends 'base.html' %}
 {% block contactactive %}active{% endblock contactactive %}
 
+{% block css %}
+    <style>
+      .container{
+        min-height: 90vh;
+      }
+    </style>
+{% endblock css %}
+
 {% block body %}
+<div class="container">
 This is my contact page
+</div>
 {% endblock body %}

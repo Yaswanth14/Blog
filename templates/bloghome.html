@@ -15,7 +15,7 @@
            {% comment %} {% lorem 2 b random %}  {% endcomment %}
 
            <div class="my-2">
-           {{blog.content|slice:245}}...
+           {{blog.short_desc|slice:245}}...
            </div>
 
            <a href="/blogpost/{{blog.slug}}" class="text-dark">
