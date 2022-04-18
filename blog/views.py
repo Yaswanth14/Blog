@@ -1,13 +1,40 @@
 from django.shortcuts import render, HttpResponse
 from blog.models import Blog
+from math import ceil
 
 # Create your views here.
 def home(request):
     return render(request, 'index.html')
 
 def blog(request):
+    no_of_posts = 5
+    page = request.GET.get('page')
+    if page is None:
+        page = 1
+    else:
+        page = int(page)
+    print(page)
+
+    '''
+    0-3, 3-6, 6-9
+
+    (pageno-1)*no_of_posts to (pageno)*no_of_posts
+    '''
     blogs = Blog.objects.all()
-    context = {'blogs': blogs}
+    length = len(blogs)
+    blogs = blogs[(page-1)*no_of_posts : page*no_of_posts]
+    if page>1:
+        prev = page-1
+    else:
+        prev = None
+
+    if page<ceil(length/no_of_posts):
+        nxt = page+1
+    else:
+        nxt = None
+
+
+    context = {'blogs': blogs, 'prev': prev, 'nxt':nxt}
     return render(request, 'bloghome.html', context)
 
 def blogpost(request, slug):

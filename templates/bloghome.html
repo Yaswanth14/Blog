@@ -2,6 +2,9 @@
 {% block blogactive %}active{% endblock blogactive %}
 {% block body %}
 
+{% block css %}
+
+{% endblock css %}
 <div class="container">
 
 
@@ -19,10 +22,26 @@
            </div>
 
            <a href="/blogpost/{{blog.slug}}" class="text-dark">
-        <button class="btn btn-primary">Read More...</button></a>
+        <button class="btn btn-outline-primary">Read More...</button></a>
     </div>
 {% endfor %}
 
+<div class="my-4">
+{% if prev %}
+    <button class="btn btn-success btn-sm"> <a href="/blog?page={{prev}}" class="text-light">&laquo; Previous</a></button>
+
+{% else %} <button class="btn btn-success disabled btn-sm"> <a href="#" class="text-light">&laquo; Empty</a></button>
+{% endif %}
+
+{% if nxt %}
+<button class="btn btn-success btn-sm float-xl-right"><a href="/blog?page={{nxt}}" class="text-light">Next &raquo;</a></button>
+
+{% else %} <button class="btn btn-success disabled btn-sm float-xl-right"><a href="#" class="text-light">Empty &raquo;</a></button>
+
+{% endif %}
+
+
+</div>
 
 </div>
 
