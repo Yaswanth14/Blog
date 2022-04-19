@@ -1,5 +1,6 @@
+import email
 from django.shortcuts import render, HttpResponse
-from blog.models import Blog
+from blog.models import Blog, Contact
 from math import ceil
 
 # Create your views here.
@@ -7,13 +8,13 @@ def home(request):
     return render(request, 'index.html')
 
 def blog(request):
-    no_of_posts = 5
+    no_of_posts = 7
     page = request.GET.get('page')
     if page is None:
         page = 1
     else:
         page = int(page)
-    print(page)
+    # print(page)
 
     '''
     0-3, 3-6, 6-9
@@ -47,4 +48,11 @@ def search(request):
     return render(request, 'search.html')
 
 def contact(request):
+    if request.method == "POST":
+        name = request.POST.get("name")
+        email = request.POST.get("email")
+        desc = request.POST.get("desc")
+        instance = Contact(name=name, email=email, desc=desc)
+        instance.save()
+
     return render(request, 'contact.html')

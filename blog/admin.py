@@ -1,5 +1,5 @@
 from django.contrib import admin
-from blog.models import Blog
+from blog.models import Blog, Contact
 
 class BlogAdmin(admin.ModelAdmin):
     class Media:
@@ -12,5 +12,6 @@ class BlogAdmin(admin.ModelAdmin):
 
 # Register your models here.
 admin.site.register(Blog, BlogAdmin)
+admin.site.register(Contact)
 
 
