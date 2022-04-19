@@ -1,4 +1,4 @@
-console.log("This is blog.js")
+// console.log("This is blog.js")
 
 
 
@@ -10,7 +10,8 @@ document.addEventListener("DOMContentLoaded", function(event){
 
     sc.onload = () =>{
         tinymce.init({
-            selector: '#id_content'
+            selector: '#id_content',
+            paste_data_images: true,
         });
     }
 
