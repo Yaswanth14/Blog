@@ -23,4 +23,5 @@ urlpatterns = [
     path('search/', views.search, name='search'),
     path('blogpost/<str:slug>', views.blogpost, name='blog'),
     path('contact/', views.contact, name='contact'),
+    path('signup/', views.handleSignUp, name="handleSignUp"),
 ]

@@ -78,6 +78,11 @@
             </button>
           </form>
         </div>
+
+          <button type="button" class="btn btn-success mx-2" data-bs-toggle="modal" data-bs-target="#signupModal">
+            SignUp
+          </button>
+
       </div>
     </nav>
 
@@ -90,6 +95,52 @@
     </div>
     {% endfor %}
 
+    <!-- SignUp Modal -->
+    <div class="modal fade" id="signupModal" tabindex="-1" aria-labelledby="signupModal" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="signupModalTitle">SignUp Here</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+    <div class="modal-body">
+    <form action= "/signup/" method='post'>
+        <div class="form-group">
+          <label for="username">Username</label>
+          <input type="text" class="form-control" id="username" name="username" placeholder="Choose a unique username">
+        </div>
+        <div class="form-group">
+          <label for="fname">First Name</label>
+          <input type="text" class="form-control" id="fname" name="fname" placeholder="Enter Your First Name">
+        </div>
+        <div class="form-group">
+          <label for="lname">Last Name</label>
+          <input type="text" class="form-control" id="lname" name="lname" placeholder="Enter Your Last Name">
+        </div>
+        <div class="form-group">
+          <label for="email">Email address</label>
+          <input type="email" class="form-control" id="email" name="email" placeholder="name@example.com">
+        </div>
+        <div class="form-group">
+          <label for="pass1">Choose a password</label>
+          <input type="password" class="form-control" id="pass1" name="pass1" placeholder="Choose Your Password">
+        </div>
+        <div class="form-group">
+          <label for="pass2">Confirm Password</label>
+          <input type="password" class="form-control" id="pass2" name="pass2" placeholder="Enter your password again">
+        </div>
+
+        {% csrf_token %}
+        <button type="submit" class="btn btn-primary my-1">Submit</button>
+    </form>
+    </div>
+          <div class="modal-footer">
+          </div>
+        </div>
+      </div>
+    </div>
     {% block body %}{% endblock body %}
 
     <footer class="py-3 text-light bg-dark text-center">
