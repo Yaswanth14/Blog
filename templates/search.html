@@ -1,4 +1,33 @@
-{% extends 'base.html' %}
-{% block body %}
-Here are your search results
+{% extends 'base.html' %} {% block blogactive %}active{% endblock blogactive %}
+{% block title %}Search Results{% endblock title %} {% block body %}
+<div class="container">
+  <h1 class="my-3">Search Resluts</h1>
+
+  {%if allPosts|length < 1 %}
+  <p>No Search Results Found</p>
+  <p>
+    Your search query: <b>{{query}}</b> did not match any blog<br />Suggestions:
+  </p>
+  <ul>
+    <li>Make sure all words are spelled correctly.</li>
+    <li>Try different keywors.</li>
+    <li>Try fewer keywords.</li>
+    <li>Try more general keywords.</li>
+  </ul>
+
+  {% endif %} {% for blog in allPosts %}
+  <div class="my-4">
+    <h3 class="text-dark">
+      <a href="/blogpost/{{blog.slug}}" class="text-dark">{{blog.title}}</a>
+    </h3>
+
+    <div class="my-2">{{blog.short_desc|slice:245}}...</div>
+
+    <a href="/blogpost/{{blog.slug}}" class="text-dark">
+      <button class="btn btn-outline-primary">Read More</button></a
+    >
+  </div>
+  {% endfor %}
+</div>
+
 {% endblock body %}
