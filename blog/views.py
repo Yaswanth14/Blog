@@ -4,6 +4,7 @@ from blog.models import Blog, Contact
 from math import ceil
 from django.contrib import messages
 from django.contrib.auth.models import User
+from django.contrib.auth  import authenticate,  login, logout
 
 # Create your views here.
 def home(request):
@@ -113,3 +114,23 @@ def handleSignUp(request):
 
     else:
         return HttpResponse("404 - Not found")
+    
+def handleLogin(request):
+    if request.method=="POST":
+        loginusername=request.POST['loginusername']
+        loginpassword=request.POST['loginpassword']
+
+        user=authenticate(username= loginusername, password= loginpassword)
+        if user is not None:
+            login(request, user)
+            messages.success(request, "Successfully Logged In")
+            return redirect("home")
+        else:
+            messages.error(request, "Invalid credentials! Please try again")
+            return redirect("home")
+    return HttpResponse("404- Not found")
+    
+def handleLogout(request):
+    logout(request)
+    messages.success(request, "Successfully logged out")
+    return redirect('home')
