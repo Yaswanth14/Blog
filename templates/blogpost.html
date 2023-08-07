@@ -12,7 +12,8 @@
 {% endblock css %}
 
 <div class="container">
-  <h1 class="my-3">{{blog.title}}</h1>
+  <h1 class="my-3 row">{{blog.title}}</h1>
+  <p class="blog-post-meta">Created on <b>{{blog.time}}</b></p>
 
   <div class="row my-3">{{blog.content|safe}}</div>
 </div>
