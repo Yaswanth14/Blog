@@ -1,6 +1,6 @@
 import email
 from django.shortcuts import render, HttpResponse, redirect
-from blog.models import Blog, Contact
+from blog.models import Blog, Contact, BlogComment
 from math import ceil
 from django.contrib import messages
 from django.contrib.auth.models import User
@@ -134,3 +134,15 @@ def handleLogout(request):
     logout(request)
     messages.success(request, "Successfully logged out")
     return redirect('home')
+
+def postComment(request):
+    if request.method == "POST":
+        comment = request.POST.get('comment')
+        user = request.user
+        postSno = request.POST.get('postSno')
+        post = Blog.objects.get(sno=postSno)
+        comment = BlogComment(comment= comment, user=user, post=post)
+        comment.save()
+        messages.success(request, "Your comment has been posted successfully")
+        
+    return redirect(f"/blog/{post.slug}")
