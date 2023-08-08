@@ -9,7 +9,7 @@ class BlogAdmin(admin.ModelAdmin):
         js = ("js/blog.js",)
 
 # Register your models here.
-admin.site.register(Blog, BlogAdmin)
+# admin.site.register(Blog, BlogAdmin)
 admin.site.register(Contact)
 admin.site.register((Blog, BlogComment))
 

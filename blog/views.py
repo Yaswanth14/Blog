@@ -44,8 +44,8 @@ def blog(request):
 
 def blogpost(request, slug):
     blog = Blog.objects.filter(slug = slug).first()
-    context = {'blog': blog}
-
+    comments = BlogComment.objects.filter(post=blog)
+    context = {'blog': blog, 'comments':comments, 'user':request.user}
     return render(request, 'blogpost.html', context)
 
 def search(request):
@@ -145,4 +145,4 @@ def postComment(request):
         comment.save()
         messages.success(request, "Your comment has been posted successfully")
         
-    return redirect(f"/blog/{post.slug}")
+    return redirect(f"/blogpost/{post.slug}")

@@ -19,10 +19,13 @@ class Blog(models.Model):
 class BlogComment(models.Model):
     sno = models.AutoField(primary_key=True)
     comment = models.TextField()
-    users = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     post = models.ForeignKey(Blog, on_delete=models.CASCADE)
     parent=models.ForeignKey('self',on_delete=models.CASCADE, null=True )
-    time = models.DateTimeField(default=now)
+    timestamp = models.DateTimeField(default=now)
+
+    def __str__(self):
+        return self.comment[0:13] + "..." + "by" + " " + self.user.username
 
 class Contact(models.Model):
     sno = models.AutoField(primary_key=True)
