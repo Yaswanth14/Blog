@@ -9,7 +9,7 @@
     padding: 5px;
   }
 </style>
-{% endblock css %}
+{% endblock css %} {% load humanize %}
 
 <div class="container">
   <h1 class="my-3 row">{{blog.title}}</h1>
@@ -19,7 +19,8 @@
 </div>
 
 <div class="container">
-  <h2>Comments</h2>
+  <h2>Comments ({{comments.count}})</h2>
+  {% if user.is_authenticated %}
   <form action="/blogpost/postComment/" method="post">
     {% csrf_token %}
     <div class="form-group">
@@ -34,7 +35,9 @@
     <input type="hidden" name="postSno" value="{{blog.sno}}" />
     <button type="submit" class="btn btn-primary">Submit</button>
   </form>
-  {% for comment in comments %}
+  {% else %}
+  <p>Please login to post comment</p>
+  {% endif %} {% for comment in comments %}
   <div class="row my-3">
     <div class="col-md-1">
       <img
@@ -44,7 +47,8 @@
       />
     </div>
     <div class="col-md-11">
-      <b> {{comment.user.username}} </b> at {{comment.timestamp}}
+      <b> {{comment.user.username}} </b>
+      <span class="badge bg-secondary">{{comment.timestamp| naturaltime}}</span>
       <div>{{comment.comment}}</div>
     </div>
   </div>
