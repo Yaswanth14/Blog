@@ -9,7 +9,7 @@
     padding: 5px;
   }
 </style>
-{% endblock css %} {% load humanize %}
+{% endblock css %} {% load humanize %} {% load extras %}
 
 <div class="container">
   <h1 class="my-3 row">{{blog.title}}</h1>
@@ -49,10 +49,41 @@
     <div class="col-md-11">
       <b> {{comment.user.username}} </b>
       <span class="badge bg-secondary">{{comment.timestamp| naturaltime}}</span>
-      <div>{{comment.comment}}</div>
+
+      {% comment %} <div>{{comment.comment}}</div>
     </div>
   </div>
   {% endfor %}
 </div>
 
-{% endblock body %}
+{% endblock body %} {% endcomment %}
+
+<button class="btn btn-sm btn-primary" type="button" data-bs-toggle="collapse" data-target="#replyBox{{comment.sno}}" aria-expanded="false" aria-controls="replyBox{{comment.sno}}">
+  Reply
+</button>
+<div class="collapse show" id="replyBox{{comment.sno}}">
+  <div class="card card-body my-2">
+      <form action="/blogpost/postComment/" method="post">
+          {% csrf_token %}
+          <div class="form-group">
+              <label for="comment">Post a reply </label>
+              <input type="text" class="form-control" name="comment" placeholder="Enter comment here">
+              <input type="hidden" name="parentSno" value="{{comment.sno}}">
+          </div>
+          <input type="hidden" name="postSno" value="{{blog.sno}}">
+          <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+  </div>
+</div>
+<div>{{comment.comment}}</div>
+<div class="replies bg-danger my-2 ">
+{% for reply in replyDict|get_val:comment.sno %}
+{{reply}}
+
+{% endfor %}
+</div>
+</div>
+</div>
+{% endfor %}
+</div>
+{% endblock %}

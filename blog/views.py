@@ -44,8 +44,15 @@ def blog(request):
 
 def blogpost(request, slug):
     blog = Blog.objects.filter(slug = slug).first()
-    comments = BlogComment.objects.filter(post=blog)
-    context = {'blog': blog, 'comments':comments, 'user':request.user}
+    comments = BlogComment.objects.filter(post=blog, parent=None)
+    replies= BlogComment.objects.filter(post=blog).exclude(parent=None)
+    replyDict={}
+    for reply in replies:
+        if reply.parent.sno not in replyDict.keys():
+            replyDict[reply.parent.sno]=[reply]
+        else:
+            replyDict[reply.parent.sno].append(reply)
+    context = {'blog': blog, 'comments':comments, 'user':request.user, 'replyDict': replyDict}
     return render(request, 'blogpost.html', context)
 
 def search(request):
