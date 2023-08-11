@@ -58,16 +58,20 @@
 
 {% endblock body %} {% endcomment %}
 
+{% if user.is_authenticated %}
 <button class="btn btn-sm btn-primary" type="button" data-bs-toggle="collapse" data-target="#replyBox{{comment.sno}}" aria-expanded="false" aria-controls="replyBox{{comment.sno}}">
   Reply
 </button>
+{% endif %}
+<div>{{comment.comment}}</div>
+{% if user.is_authenticated %}
 <div class="collapse show" id="replyBox{{comment.sno}}">
   <div class="card card-body my-2">
       <form action="/blogpost/postComment/" method="post">
           {% csrf_token %}
           <div class="form-group">
               <label for="comment">Post a reply </label>
-              <input type="text" class="form-control" name="comment" placeholder="Enter comment here">
+              <input type="text" class="form-control" name="comment" placeholder="Enter your reply here">
               <input type="hidden" name="parentSno" value="{{comment.sno}}">
           </div>
           <input type="hidden" name="postSno" value="{{blog.sno}}">
@@ -75,12 +79,43 @@
       </form>
   </div>
 </div>
-<div>{{comment.comment}}</div>
-<div class="replies bg-danger my-2 ">
+{% else %}
+    <button
+      type="button"
+      class="btn btn-sm btn-primary"
+      data-bs-toggle="modal"
+      data-bs-target="#loginModal"
+    >
+        Login to Reply
+    </button>
+{% endif %}
+{% comment %} <div class="replies my-2 ">
+  <ul>
 {% for reply in replyDict|get_val:comment.sno %}
-{{reply}}
-
+<li>{{reply}}</li>
 {% endfor %}
+  </ul>
+</div>
+</div>
+</div>
+{% endfor %}
+</div> {% endcomment %}
+
+<div class="replies my-2 ">
+  {% for reply in replyDict|get_val:comment.sno %}
+  <div class="row my-2">
+      <div class="col-md-1 ">
+          <img class="rounded mx-auto d-block w-75 my-2 border border-dark p-2" src="/static/img/user.png" alt="user">
+      </div>
+      <div class="col-md-11">
+          <div class="col-md-11 ">
+              <b> {{reply.user.username}} </b> <span class="badge bg-secondary ">{{reply.timestamp| naturaltime}}</span>
+              <div>{{reply.comment}}</div>
+          </div>
+          <br>
+      </div>
+  </div>
+  {% endfor %}
 </div>
 </div>
 </div>
