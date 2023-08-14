@@ -1,7 +1,13 @@
-# snoozeWrites
+<h1 align="center">
+<a href="">SnoozeWrites</a>
+</h1>
+
+## 📌 Introduction
+
+SnoozeWrites is a dynamic Django Blog with user authentication and enhanced user engagement by integrating commenting systems. It has a seamless user experience by implementing responsive design and pagination for easy navigation, creating a user-friendly platform for desktop and mobile devices. Users can easily navigate among articles with an enhanced filter-by-search feature.
 
 # Steps To Run Locally and Make Changes
-The following command are meant to run in a terminal or cmd
+The following commands are meant to run in a terminal or cmd
 ### First create a directory
     mkdir <dir_name>
 ### Change into to directory
