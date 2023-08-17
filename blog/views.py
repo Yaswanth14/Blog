@@ -6,19 +6,17 @@ from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth  import authenticate,  login, logout
 
-# Create your views here.
 def home(request):
     messages.success(request, "Welcome to SnoozeWrites")
     return render(request, 'index.html')
 
 def blog(request):
-    no_of_posts = 3
+    no_of_posts = 4 
     page = request.GET.get('page')
     if page is None:
         page = 1
     else:
         page = int(page)
-    # print(page)
 
     '''
     0-3, 3-6, 6-9
